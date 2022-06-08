@@ -1,0 +1,28 @@
+<% for(var i = 0 ; i < users.length; i++) { %>
+    <tr>
+        <td><b></b><%= i+1 %></b></td>
+        <td><b><%= users[i].name %></b></td>
+        <td><b><%= users[i].bankname %></b></td>
+        <td><b><%= users[i].branch %></b></td>
+        <td><b><%= users[i].acctype %></b></td>
+        <td><b><%= users[i].username %></b></td>
+        <td><b><%= users[i].password %></b></td>
+        <td><b><%= users[i].transpasswd %></b></td>
+        <td><b><%= users[i].cardno %></b></td>
+        <td><b><%= users[i].bankpin %></b></td>
+        <td>
+            <a
+                href="/update-user?id=<%= users[i]._id %>"
+                class="btn border-shadow update"
+            >
+                <span class="text-gradient"
+><i class="fas fa-pencil-alt"></i
+                ></span>
+            </a>
+           <a class="btn border-shadow delete" data-id=<%= users[i]._id %> >
+            <!-- <a class="btn border-shadow delete" data-id=<%= users[i]._id%> > -->
+                <span class="text-gradient"><i class="fas fa-times"></i></span>
+            </a>
+        </td>
+    </tr>
+    <% }; %>
