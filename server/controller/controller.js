@@ -1,10 +1,11 @@
-var Userdb = require("../model/model");
+const Userdb = require("../model/model");
+const excelJS = require("exceljs");
 
 // create and save new user
 exports.create = (req, res) => {
     // validate request
     if (!req.body) {
-        res.status(400).send({ message: "Content can not be emtpy!" });
+        res.status(400).send({ message: "Content can not be empty!" });
         return;
     }
 
@@ -16,6 +17,7 @@ exports.create = (req, res) => {
         acctype:req.body.acctype,
         username: req.body.username,
         password: req.body.password,
+        passwdupddate: req.body.passwdupddate,
         transpasswd: req.body.transpasswd,
         cardno: req.body.cardno,
         bankpin: req.body.bankpin
@@ -116,4 +118,50 @@ exports.delete = (req, res) => {
                 message: "Could not delete User with id=" + id,
             });
         });
+
 };
+
+
+exports.exportExcel=  (async (req,res) => {
+
+    
+    const workbook = new excelJS.Workbook();  // Create a new workbook
+    const worksheet = workbook.addWorksheet("My Users"); // New Worksheet
+    const path = "./files";  // Path to download excel
+    // Column for data in excel. key must match data key
+    worksheet.columns = [
+      { header: "name", key: "name", width: 10 }, 
+      { header: "bankname ", key: "fname", width: 10 },
+      { header: "branch", key: "lname", width: 10 },
+      { header: "name", key: "name", width: 10  },
+      { header: "name", key: "name", width: 10  },
+  ];
+  // Looping through User data
+  let counter = 1;
+  Userdb.forEach((data) => {
+    user.s_no = counter;
+    worksheet.addRow(data); // Add data in worksheet
+    counter++;
+  });
+  // Making first line in excel bold
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true };
+  });
+  try {
+    const data = await workbook.xlsx.writeFile(`${path}/users.xlsx`)
+     .then(() => {
+       res.send({
+         status: "success",
+         message: "file successfully downloaded",
+         path: `${path}/users.xlsx`,
+        });
+     });
+  } catch (err) {
+      res.send({
+      status: "error",
+      message: "Something went wrong",
+    });
+    }
+  
+
+});

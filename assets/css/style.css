@@ -90,7 +90,7 @@ table {
 }
 
 .table tr:hover {
-    background-color: #d80a0a;
+    background-color: olive;
 }
 
 .table tr:hover td > a {

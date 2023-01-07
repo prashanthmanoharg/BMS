@@ -32,6 +32,12 @@ acctype:{
 
     },
 
+    passwdupddate: {
+           type: String,
+           required: true,
+
+    },
+
     transpasswd:
     {
            type:String,
