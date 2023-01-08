@@ -27,7 +27,7 @@
 
 ##### `Open your browser and type in search::`<br>
 ```
-localhost:3005
+localhost:3000
 ```
 <br>
 <p><strong>That's It ^_^<br>
